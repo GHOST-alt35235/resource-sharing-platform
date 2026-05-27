@@ -1,0 +1,73 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    connection-timeout: 20000
+    max-connections: 10000
+    accept-count: 100
+
+spring:
+  application:
+    name: resource-sharing
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://YOUR_DB_HOST:3306/resource_sharing?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: YOUR_DB_USERNAME
+    password: YOUR_DB_PASSWORD
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: cn.edu.wynu.model.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+sa-token:
+  token-name: Authorization
+  timeout: 2592000
+  active-timeout: -1
+  is-concurrent: true
+  is-share: false
+  token-style: uuid
+  is-log: false
+
+points:
+  register-gift: 100
+  upload-reward: 10
+  download-cost: 5
+
+file:
+  upload-path: /var/www/uploads
+
+logging:
+  level:
+    root: INFO
+    cn.edu.wynu: INFO
+    cn.edu.wynu.mapper: DEBUG
+  file:
+    name: /var/log/resource-sharing/application.log
+    max-size: 100MB
+    max-history: 30
