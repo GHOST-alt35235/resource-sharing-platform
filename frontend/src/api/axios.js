@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 const instance = axios.create({
-  baseURL: 'https://exxtuunbetyngatwfday.supabase.co/functions/v1/api',
+  baseURL: 'https://exxtuunbetyngatwfday.supabase.co/functions/v1',
   timeout: 10000
 })
 
